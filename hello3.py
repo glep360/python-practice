@@ -1,5 +1,6 @@
-def hello():
-    print("Hello")
-name = input("Enter your name: ")
+def hello(to="World"):
+    print("Hello", to)
+
 hello()
-print(name)
+name = input("Whats your name: ")
+hello(name.title().strip())

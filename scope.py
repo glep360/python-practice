@@ -1,4 +1,4 @@
-# In scope  
+# In scope   
 def main():
     name = input("What is ypur name: ")
     hello(name)
