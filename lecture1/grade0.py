@@ -12,4 +12,4 @@ elif x >= 35 and x <= 50:
 elif x >= 0 and x <= 35:
     print("Fail")
 else:
-    print("Error! write correct number")
+    print("Error! Write correct marks")
