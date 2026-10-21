@@ -1,13 +1,7 @@
-def main():
-    x = int(input("Write a number: "))
-    if is_even(x):
-        print("Even")
-    else:
-        print("Odd")
-# Now define is_even here and do the % part 
-def is_even(n):
-    if n % 2 == 0:
-        return True
-    else:
-        return False
-main()
+number = 8
+
+# % 2 gives the remainder when divided by 2
+# If remainder is 0, the number is even
+is_even = (number % 2 == 0)
+
+print(is_even)  #output is True
