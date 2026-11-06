@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .calculator {
+    background: #ff8fb1;
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  #display {
+    width: 100%;
+    height: 60px;
+    font-size: 28px;
+    text-align: right;
+    border: none;
+    background: #ff5d8f;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  button {
+    font-size: 22px;
+    padding: 18px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #ffb3cf;
+    color: #5a1a3a;
+    transition: background 0.2s;
+  }
+  button:hover { background: #ff99c2; }
+  button:active { background: #ff7eb3; }
+  .operator { background: #ff5d8f; color: #fff; }
+  .operator:hover { background: #ff4a7c; }
+  .equals { background: #ff5d8f; color: #fff; }
+  .equals:hover { background: #ff4a7c; }
+  .clear { background: #ff99c2; color: #5a1a3a; }
+</style>
+</head>
+<body>
+  <div class="calculator">
+    <input id="display" type="text" readonly>
+    <div class="keys">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="operator" onclick="append('+')">+</button>
+      <button class="operator" onclick="append('-')">-</button>
+      <button class="operator" onclick="append('*')">×</button>
+      <button class="operator" onclick="append('/')">÷</button>
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button class="equals" onclick="calculate()">=</button>
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+    </div>
+  </div>
+
+<script>
+  const display = document.getElementById('display');
+  let current = '0';
+
+  function append(char) {
+    if (char === '.') {
+      if (!current.includes('.')) current += '.';
+    } else if (current === '0') {
+      current = char;
+    } else {
+      current += char;
+    }
+    display.value = current;
+  }
+
+  function calculate() {
+    try {
+      // Replace × and ÷ with * and /
+      const expr = current.replace(/×/g, '*').replace(/÷/g, '/');
+      const result = eval(expr);
+      current = String(result);
+      display.value = current;
+    } catch (e) {
+      display.value = 'Error';
+      current = '0';
+    }
+  }
+
+  function clearDisplay() {
+    current = '0';
+    display.value = current;
+  }
+
+  // Keyboard support
+  document.addEventListener('keydown', (e) => {
+    const key = e.key;
+    if (/[0-9+\-*/.=]/.test(key)) {
+      e.preventDefault();
+      if (key === '=') calculate();
+      else if (key === '.') append('.');
+      else append(key);
+    } else if (key === 'Escape' || key === 'c' || key === 'C') {
+      clearDisplay();
+    }
+  });
+</script>
+</body>
+</html>
